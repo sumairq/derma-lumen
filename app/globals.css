@@ -1,0 +1,172 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* Warm clinical palette */
+  --color-bg: #faf6f0;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1eae0;
+  --color-surface-3: #ebe2d4;
+  --color-ink: #14201f;
+  --color-ink-2: #3a4a48;
+  --color-muted: #6b7775;
+  --color-line: #e5dccf;
+  --color-line-strong: #d4c7b4;
+  --color-accent: #0f4f4a;
+  --color-accent-2: #1a6e68;
+  --color-accent-3: #0a3835;
+  --color-gold: #b08a4f;
+  --color-success: #2e7d5b;
+  --color-danger: #b23a48;
+
+  /* Typography scale */
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --radius-2xl: 40px;
+
+  /* Shadow */
+  --shadow-soft: 0 1px 2px rgba(20, 32, 31, 0.04), 0 8px 24px -8px rgba(20, 32, 31, 0.08);
+  --shadow-lift: 0 2px 4px rgba(20, 32, 31, 0.06), 0 18px 40px -12px rgba(20, 32, 31, 0.14);
+
+  /* Container */
+  --container-7xl: 80rem;
+
+  /* Animation */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    font-weight: 500;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 100;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: top 200ms var(--ease-out-soft);
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.078 0 0 0 0 0.125 0 0 0 0 0.122 0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+  }
+
+  .fade-in-up {
+    animation: fade-in-up 700ms var(--ease-out-soft) both;
+  }
+  .fade-in {
+    animation: fade-in 700ms var(--ease-out-soft) both;
+  }
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translate3d(0, 12px, 0); }
+    to   { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 50s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+}
+
+/* Custom prose tweaks for blog */
+.prose-clinical {
+  color: var(--color-ink-2);
+  line-height: 1.75;
+}
+.prose-clinical h2,
+.prose-clinical h3 {
+  color: var(--color-ink);
+  scroll-margin-top: 6rem;
+}
+.prose-clinical a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line-strong);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 200ms;
+}
+.prose-clinical a:hover {
+  text-decoration-color: var(--color-accent);
+}
