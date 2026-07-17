@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { Reveal } from "@/components/ui/Reveal";
 
 export function Section({
   className,
@@ -78,7 +79,7 @@ export function SectionHeading({
 }) {
   const isLight = tone === "light";
   return (
-    <div
+    <Reveal
       className={cn(
         "mb-12 max-w-3xl lg:mb-16",
         align === "center" && "mx-auto text-center",
@@ -92,7 +93,7 @@ export function SectionHeading({
       ) : null}
       <h2
         className={cn(
-          "text-balance text-4xl font-medium leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl",
+          "text-balance text-display-lg font-medium",
           isLight && "text-[color:var(--color-bg)]"
         )}
       >
@@ -110,6 +111,6 @@ export function SectionHeading({
           {description}
         </p>
       ) : null}
-    </div>
+    </Reveal>
   );
 }

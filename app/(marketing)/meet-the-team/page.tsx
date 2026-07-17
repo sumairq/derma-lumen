@@ -42,7 +42,7 @@ export default function TeamPage() {
           <Breadcrumbs items={[{ name: "Meet the Team", path: routes.team, current: true }]} />
           <div className="mt-8 max-w-4xl">
             <SectionEyebrow>Our Team</SectionEyebrow>
-            <h1 className="mt-5 font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 font-display text-display-2xl font-medium">
               Board-certified expertise. Real human care.
             </h1>
             <p className="mt-6 max-w-3xl text-lg text-[color:var(--color-ink-2)] sm:text-xl">
@@ -74,7 +74,7 @@ export default function TeamPage() {
                 </figure>
                 <div>
                   <Badge tone="accent">{p.credentials}</Badge>
-                  <h2 className="mt-4 font-display text-4xl font-medium tracking-tight sm:text-5xl">
+                  <h2 className="mt-4 font-display text-display-md font-medium">
                     {p.name}
                   </h2>
                   <p className="mt-2 text-lg text-[color:var(--color-accent)]">{p.title}</p>
@@ -104,7 +104,7 @@ export default function TeamPage() {
                     </ul>
                   </div>
                   <div className="mt-7">
-                    <Button href={routes.contact} arrow>
+                    <Button href={routes.book} arrow>
                       Book with {p.name.split(" ")[0]}
                     </Button>
                   </div>

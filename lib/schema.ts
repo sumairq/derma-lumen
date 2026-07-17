@@ -99,6 +99,26 @@ export function breadcrumbSchema(
   };
 }
 
+export function imageGallerySchema(input: {
+  name: string;
+  description: string;
+  path: string;
+  images: { url: string; caption: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: input.name,
+    description: input.description,
+    url: new URL(input.path, SITE_URL).toString(),
+    image: input.images.map((img) => ({
+      "@type": "ImageObject",
+      contentUrl: new URL(img.url, SITE_URL).toString(),
+      caption: img.caption,
+    })),
+  };
+}
+
 export function faqSchema(faqs: { q: string; a: string }[]) {
   return {
     "@context": "https://schema.org",

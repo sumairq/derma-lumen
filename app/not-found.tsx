@@ -15,7 +15,7 @@ export default function NotFound() {
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-[color:var(--color-accent)]">
               404
             </p>
-            <h1 className="mt-4 font-display text-5xl font-medium leading-[1.05] tracking-[-0.02em] sm:text-6xl">
+            <h1 className="mt-4 font-display text-display-xl font-medium">
               We couldn&apos;t find that page.
             </h1>
             <p className="mt-5 text-lg text-[color:var(--color-ink-2)]">

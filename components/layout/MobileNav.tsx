@@ -12,6 +12,8 @@ import { SERVICE_CATEGORIES, getServicesByCategory } from "@/content/services";
 
 const primary = [
   { label: "Services", href: routes.services },
+  { label: "Results", href: routes.results },
+  { label: "Pricing", href: routes.pricing },
   { label: "About", href: routes.about },
   { label: "Team", href: routes.team },
   { label: "Blog", href: routes.blog },
@@ -106,7 +108,7 @@ export function MobileNav() {
             </div>
           </nav>
           <div className="border-t border-[color:var(--color-line)] p-5 space-y-3">
-            <Button href={routes.contact} className="w-full" arrow>
+            <Button href={routes.book} className="w-full" arrow>
               Book a Consultation
             </Button>
             <a

@@ -17,9 +17,15 @@ export function Header() {
 
         <nav
           aria-label="Primary"
-          className="hidden lg:flex items-center gap-7 text-[15px] text-[color:var(--color-ink)]"
+          className="hidden lg:flex items-center gap-5 text-sm xl:gap-6 xl:text-[15px] text-[color:var(--color-ink)]"
         >
           <ServicesMegaMenu />
+          <Link href={routes.results} className="hover:text-[color:var(--color-accent)] transition-colors">
+            Results
+          </Link>
+          <Link href={routes.pricing} className="hover:text-[color:var(--color-accent)] transition-colors">
+            Pricing
+          </Link>
           <Link href={routes.about} className="hover:text-[color:var(--color-accent)] transition-colors">
             About
           </Link>
@@ -45,7 +51,7 @@ export function Header() {
             <Phone className="size-4" aria-hidden />
             {clinic.phone}
           </a>
-          <Button href={routes.contact} size="sm" className="hidden lg:inline-flex">
+          <Button href={routes.book} size="sm" className="hidden lg:inline-flex">
             Book Consult
           </Button>
           <MobileNav />

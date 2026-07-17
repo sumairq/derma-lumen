@@ -28,7 +28,7 @@ export default function FAQPage() {
           <Breadcrumbs items={[{ name: "FAQs", path: routes.faq, current: true }]} />
           <div className="mt-8 max-w-4xl">
             <SectionEyebrow>FAQs</SectionEyebrow>
-            <h1 className="mt-5 font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 font-display text-display-2xl font-medium">
               Questions, answered.
             </h1>
             <p className="mt-6 max-w-3xl text-lg text-[color:var(--color-ink-2)] sm:text-xl">

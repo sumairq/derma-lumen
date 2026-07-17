@@ -38,6 +38,9 @@ The `ServicePage` component in `components/service/ServicePage.tsx` is the full-
 | `content/team.ts` | Meet the Team page, DoctorCard on service pages |
 | `content/testimonials.ts` | TestimonialMarquee, per-service review snippets |
 | `content/faqs.ts` | Keyed FAQ banks (`general`, `acne`, `botox`, …) — service pages pull their slice |
+| `content/results.ts` | Before/after cases for service-page galleries and the `/results` library page (generated placeholder imagery in `public/images/results/` — replace with consented patient photos before launch) |
+
+Derived pages: `/pricing` renders a per-category treatment menu straight from `content/services/index.ts` (`getPriceTag` + `expectations`) — no separate pricing data to maintain. `/book` is the booking hub: with `NEXT_PUBLIC_BOOKING_URL` set at build time it embeds that scheduler in an iframe; unset, it falls back to the contact form. All "Book" CTAs sitewide point to `routes.book`.
 | `content/blog/posts/*.mdx` | Blog posts — read at build time via `gray-matter` + `reading-time` in `content/blog/index.ts` |
 
 ### Internal links — always use `lib/routes.ts`
@@ -80,4 +83,4 @@ Tailwind v4 CSS-first — tokens are defined in the `@theme {}` block in `app/gl
 
 ### Forms
 
-`app/actions/forms.ts` contains two Server Actions — `submitContact` and `submitIntake` — validated with Zod and honeypot-protected. Both currently `console.log` the payload. Replace the `console.log` lines with a real email provider (Resend, Web3Forms, etc.) when ready. `FormState` type is exported for use in the client form components.
+`app/actions/forms.ts` contains two Server Actions — `submitContact` and `submitIntake` — validated with Zod and honeypot-protected. Delivery is env-gated via Resend: with `RESEND_API_KEY` set (see `.env.example`) submissions are emailed to `FORM_TO_EMAIL`; without it they are logged to the server console, so dev needs no setup. Intake submissions contain PHI — swap email for a HIPAA-appropriate transport before a real launch. `FormState` type is exported for use in the client form components.

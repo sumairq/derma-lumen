@@ -68,7 +68,7 @@ export default async function BlogCategoryPage({
           ]} />
           <div className="mt-8 max-w-4xl">
             <SectionEyebrow>Topic</SectionEyebrow>
-            <h1 className="mt-5 font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl">
+            <h1 className="mt-5 font-display text-display-xl font-medium">
               {meta.title}
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-[color:var(--color-ink-2)] sm:text-xl">

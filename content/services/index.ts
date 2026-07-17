@@ -795,3 +795,25 @@ export const SERVICE_CATEGORIES = {
       "Annual screenings, mole removal, and skin cancer treatment by experienced dermatologists.",
   },
 } as const;
+
+/**
+ * Compact "from" price tag for treatment cards, derived from the fuller
+ * `expectations.priceRange` copy. Non-dollar ranges (insurance language)
+ * pass through unchanged.
+ */
+export function getPriceTag(service: Service): string | null {
+  const range = service.expectations.priceRange;
+  if (!range) return null;
+  const amount = range.match(/\$[\d,]+/);
+  if (!amount) return range;
+  const unit = range.includes("per unit")
+    ? "/unit"
+    : range.includes("per syringe")
+      ? "/syringe"
+      : range.includes("per session")
+        ? "/session"
+        : range.includes("per area")
+          ? "/area"
+          : "";
+  return `From ${amount[0]}${unit}`;
+}

@@ -1,12 +1,67 @@
 "use server";
 
 import { z } from "zod";
+import { clinic } from "@/content/clinic";
 
 export type FormState = {
   ok: boolean;
   message?: string;
   fieldErrors?: Record<string, string>;
 };
+
+/**
+ * Deliver a form submission via Resend (https://resend.com). Env-gated:
+ * without RESEND_API_KEY the submission is logged instead, so local dev and
+ * preview deploys keep working with no setup.
+ *
+ * - RESEND_API_KEY   — required to actually send
+ * - FORM_TO_EMAIL    — recipient (defaults to the clinic address)
+ * - FORM_FROM_EMAIL  — verified sender (defaults to Resend's onboarding sender)
+ */
+async function deliver({
+  subject,
+  fields,
+  replyTo,
+}: {
+  subject: string;
+  fields: Record<string, string | undefined>;
+  replyTo?: string;
+}): Promise<boolean> {
+  const lines = Object.entries(fields)
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k}: ${v}`);
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.log(`[form submission — RESEND_API_KEY not set] ${subject}\n${lines.join("\n")}`);
+    return true;
+  }
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: process.env.FORM_FROM_EMAIL ?? "Lumen Website <onboarding@resend.dev>",
+        to: [process.env.FORM_TO_EMAIL ?? clinic.email],
+        ...(replyTo ? { reply_to: replyTo } : {}),
+        subject,
+        text: lines.join("\n"),
+      }),
+    });
+    if (!res.ok) {
+      console.error("[form delivery failed]", res.status, await res.text());
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error("[form delivery failed]", err);
+    return false;
+  }
+}
 
 const contactSchema = z.object({
   name: z.string().min(2, "Please enter your name").max(120),
@@ -43,8 +98,24 @@ export async function submitContact(
   // Honeypot triggered — silently succeed
   if (parsed.data.website) return { ok: true, message: "Thank you." };
 
-  // Stubbed — swap with Resend / Formspree / Web3Forms when ready
-  console.log("[contact form submission]", parsed.data);
+  const sent = await deliver({
+    subject: `New consultation request — ${parsed.data.name}`,
+    replyTo: parsed.data.email,
+    fields: {
+      Name: parsed.data.name,
+      Email: parsed.data.email,
+      Phone: parsed.data.phone,
+      Reason: parsed.data.reason,
+      Message: parsed.data.message,
+    },
+  });
+
+  if (!sent) {
+    return {
+      ok: false,
+      message: `Something went wrong sending your message. Please call us at ${clinic.phone}.`,
+    };
+  }
 
   return {
     ok: true,
@@ -101,7 +172,31 @@ export async function submitIntake(
 
   if (parsed.data.website) return { ok: true };
 
-  console.log("[intake form submission]", parsed.data);
+  // NOTE: intake submissions contain PHI. Plain email is a placeholder
+  // transport — before a real launch, route this to a HIPAA-appropriate
+  // destination (EMR intake API, or a provider with a signed BAA).
+  const sent = await deliver({
+    subject: `New patient intake — ${parsed.data.firstName} ${parsed.data.lastName}`,
+    replyTo: parsed.data.email,
+    fields: {
+      Name: `${parsed.data.firstName} ${parsed.data.lastName}`,
+      "Date of birth": parsed.data.dob,
+      Email: parsed.data.email,
+      Phone: parsed.data.phone,
+      Insurance: parsed.data.insurance,
+      "Reason for visit": parsed.data.reason,
+      "Medical history": parsed.data.history,
+      Medications: parsed.data.medications,
+      Allergies: parsed.data.allergies,
+    },
+  });
+
+  if (!sent) {
+    return {
+      ok: false,
+      message: `Something went wrong submitting your form. Please call us at ${clinic.phone}.`,
+    };
+  }
 
   return {
     ok: true,

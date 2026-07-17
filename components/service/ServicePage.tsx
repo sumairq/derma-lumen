@@ -3,9 +3,12 @@ import Image from "next/image";
 import { Check, Clock, Calendar, Sparkles, DollarSign, ArrowUpRight } from "lucide-react";
 import type { Service } from "@/content/services/_types";
 import {
+  getPriceTag,
   getRelatedServices,
   SERVICE_CATEGORIES,
 } from "@/content/services";
+import { getTestimonialsForService } from "@/content/testimonials";
+import { getResultsForService } from "@/content/results";
 import { getServiceImage } from "@/lib/images";
 import { Container } from "@/components/ui/Container";
 import { Section, SectionEyebrow, SectionHeading } from "@/components/ui/Section";
@@ -14,9 +17,12 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Accordion } from "@/components/ui/Accordion";
+import { Reveal } from "@/components/ui/Reveal";
 import { CTA } from "@/components/sections/CTA";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { TestimonialMarquee } from "@/components/sections/TestimonialMarquee";
+import { ServiceTestimonials } from "@/components/sections/ServiceTestimonials";
+import { ResultsGallery } from "@/components/sections/ResultsGallery";
 import { JsonLd } from "@/components/schema/JsonLd";
 import {
   breadcrumbSchema,
@@ -28,6 +34,8 @@ import { clinic } from "@/content/clinic";
 
 export function ServicePage({ service }: { service: Service }) {
   const related = getRelatedServices(service.slug);
+  const serviceTestimonials = getTestimonialsForService(service.slug);
+  const resultCases = getResultsForService(service.slug);
   const categoryMeta = SERVICE_CATEGORIES[service.category];
   const heroImage = getServiceImage(service.slug);
   const breadcrumbs = [
@@ -61,14 +69,14 @@ export function ServicePage({ service }: { service: Service }) {
           <div className="mt-8 grid items-start gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
             <div>
               <SectionEyebrow>{service.hero.eyebrow}</SectionEyebrow>
-              <h1 className="mt-5 text-balance font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+              <h1 className="mt-5 text-balance font-display text-display-2xl font-medium">
                 {service.h1}
               </h1>
               <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-[color:var(--color-ink-2)] sm:text-xl">
                 {service.shortDescription}
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Button href={routes.contact} size="lg" arrow>
+                <Button href={routes.book} size="lg" arrow>
                   Book a Consultation
                 </Button>
                 <Button href={`tel:${clinic.phoneE164}`} variant="secondary" size="lg" external>
@@ -96,6 +104,8 @@ export function ServicePage({ service }: { service: Service }) {
                 fill
                 priority
                 unoptimized
+                placeholder="blur"
+                blurDataURL={heroImage.blurDataURL}
                 sizes="(min-width: 1280px) 640px, (min-width: 1024px) 48vw, 100vw"
                 className="object-cover object-center"
               />
@@ -120,7 +130,7 @@ export function ServicePage({ service }: { service: Service }) {
           <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
             <div>
               <SectionEyebrow>About this treatment</SectionEyebrow>
-              <h2 className="mt-4 font-display text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
+              <h2 className="mt-4 font-display text-display-md font-medium">
                 Understanding {service.title.toLowerCase()}
               </h2>
               <div className="mt-6 space-y-5 text-pretty text-lg leading-relaxed text-[color:var(--color-ink-2)]">
@@ -173,8 +183,10 @@ export function ServicePage({ service }: { service: Service }) {
           />
           <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {service.benefits.map((b, i) => (
-              <li
+              <Reveal
+                as="li"
                 key={i}
+                delay={i * 75}
                 className="rounded-2xl border border-[color:var(--color-bg)]/12 bg-[color:var(--color-bg)]/5 p-6"
               >
                 <span className="font-display text-3xl text-[color:var(--color-gold)]">
@@ -186,15 +198,26 @@ export function ServicePage({ service }: { service: Service }) {
                 <p className="mt-2 text-sm leading-relaxed text-[color:var(--color-bg)]/75">
                   {b.description}
                 </p>
-              </li>
+              </Reveal>
             ))}
           </ul>
         </Container>
       </Section>
 
-      {/* Testimonials */}
+      {/* Results — before/after gallery when the service has cases */}
+      {resultCases.length ? (
+        <Section tone="surface">
+          <ResultsGallery cases={resultCases} />
+        </Section>
+      ) : null}
+
+      {/* Testimonials — treatment-specific when we have them */}
       <Section>
-        <TestimonialMarquee />
+        {serviceTestimonials.length ? (
+          <ServiceTestimonials items={serviceTestimonials} serviceTitle={service.title} />
+        ) : (
+          <TestimonialMarquee />
+        )}
       </Section>
 
       {/* FAQs */}
@@ -203,7 +226,7 @@ export function ServicePage({ service }: { service: Service }) {
           <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-20">
             <div>
               <SectionEyebrow>FAQs</SectionEyebrow>
-              <h2 className="mt-4 font-display text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
+              <h2 className="mt-4 font-display text-display-md font-medium">
                 Your questions, answered
               </h2>
               <p className="mt-5 text-[color:var(--color-ink-2)]">
@@ -229,25 +252,33 @@ export function ServicePage({ service }: { service: Service }) {
               title="Often considered together"
             />
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((r) => (
-                <li key={r.slug}>
-                  <Link
-                    href={routes.service(r.slug)}
-                    className="group flex h-full flex-col rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-surface)] p-6 transition-all hover:border-[color:var(--color-line-strong)] hover:shadow-[var(--shadow-soft)]"
-                  >
-                    <div className="flex items-center justify-between">
-                      <Badge tone="accent">{SERVICE_CATEGORIES[r.category].title}</Badge>
-                      <ArrowUpRight className="size-4 text-[color:var(--color-line-strong)] transition-all group-hover:text-[color:var(--color-accent)]" aria-hidden />
-                    </div>
-                    <h3 className="mt-5 font-display text-xl font-medium tracking-tight">
-                      {r.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-[color:var(--color-ink-2)]">
-                      {r.shortDescription}
-                    </p>
-                  </Link>
-                </li>
-              ))}
+              {related.map((r, i) => {
+                const priceTag = getPriceTag(r);
+                return (
+                  <Reveal as="li" key={r.slug} delay={(i % 3) * 100}>
+                    <Link
+                      href={routes.service(r.slug)}
+                      className="group flex h-full flex-col rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-surface)] p-6 transition-all hover:border-[color:var(--color-line-strong)] hover:shadow-[var(--shadow-soft)]"
+                    >
+                      <div className="flex items-center justify-between">
+                        <Badge tone="accent">{SERVICE_CATEGORIES[r.category].title}</Badge>
+                        <ArrowUpRight className="size-4 text-[color:var(--color-line-strong)] transition-all group-hover:text-[color:var(--color-accent)]" aria-hidden />
+                      </div>
+                      <h3 className="mt-5 font-display text-xl font-medium tracking-tight">
+                        {r.title}
+                      </h3>
+                      <p className="mt-2 flex-1 text-sm text-[color:var(--color-ink-2)]">
+                        {r.shortDescription}
+                      </p>
+                      {priceTag ? (
+                        <div className="mt-5 border-t border-[color:var(--color-line)] pt-4 text-sm font-medium text-[color:var(--color-accent)]">
+                          {priceTag}
+                        </div>
+                      ) : null}
+                    </Link>
+                  </Reveal>
+                );
+              })}
             </ul>
           </Container>
         </Section>

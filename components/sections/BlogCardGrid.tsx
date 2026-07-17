@@ -50,6 +50,8 @@ export function BlogCard({ post }: { post: BlogPost }) {
           alt={cover.alt}
           fill
           quality={100}
+          placeholder="blur"
+          blurDataURL={cover.blurDataURL}
           sizes="(min-width: 1280px) 480px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />

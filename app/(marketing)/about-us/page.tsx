@@ -50,7 +50,7 @@ export default function AboutPage() {
           <Breadcrumbs items={[{ name: "About Us", path: routes.about, current: true }]} />
           <div className="mt-8 max-w-4xl">
             <SectionEyebrow>About</SectionEyebrow>
-            <h1 className="mt-5 font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 font-display text-display-2xl font-medium">
               Dermatology, the way it was meant to feel.
             </h1>
             <p className="mt-6 max-w-3xl text-lg text-[color:var(--color-ink-2)] sm:text-xl">
@@ -67,6 +67,8 @@ export default function AboutPage() {
               fill
               priority
               unoptimized
+              placeholder="blur"
+              blurDataURL={images.hero.blurDataURL}
               sizes="(min-width: 1280px) 1280px, 100vw"
               className="object-cover object-[55%_30%]"
             />
@@ -85,7 +87,7 @@ export default function AboutPage() {
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
             <div>
               <SectionEyebrow>Our story</SectionEyebrow>
-              <h2 className="mt-4 font-display text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
+              <h2 className="mt-4 font-display text-display-md font-medium">
                 Built around the kind of care we&apos;d want.
               </h2>
             </div>

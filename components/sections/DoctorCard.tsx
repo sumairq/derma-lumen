@@ -26,6 +26,8 @@ export function DoctorIntro() {
               alt={`${lead.name} caring for a patient at ${lead.title.toLowerCase()}, ${"Lumen Dermatology"}`}
               fill
               quality={100}
+              placeholder="blur"
+              blurDataURL={images.maskTreatment.blurDataURL}
               sizes="(min-width: 1280px) 640px, (min-width: 1024px) 48vw, 100vw"
               className="object-cover object-[55%_30%]"
             />
@@ -45,7 +47,7 @@ export function DoctorIntro() {
         </figure>
         <div>
           <SectionEyebrow>Meet your dermatologist</SectionEyebrow>
-          <h2 className="mt-4 font-display text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
+          <h2 className="mt-4 font-display text-display-md font-medium">
             {lead.name}
           </h2>
           <p className="mt-2 text-lg text-[color:var(--color-accent)]">{lead.title}</p>
@@ -86,6 +88,8 @@ export function ProviderPortrait({
         alt={alt}
         fill
         quality={100}
+        placeholder="blur"
+        blurDataURL={img.blurDataURL}
         sizes="(min-width: 1280px) 640px, (min-width: 1024px) 48vw, 100vw"
         className="object-cover object-center"
       />

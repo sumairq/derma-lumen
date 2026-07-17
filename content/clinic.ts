@@ -31,6 +31,18 @@ export const clinic = {
   rating: { value: 4.9, count: 412 },
   founded: 2014,
   npi: "0000000000",
+  stats: [
+    { value: "10+", label: "Years serving Austin" },
+    { value: "12k+", label: "Patients cared for" },
+    { value: "98%", label: "Patient satisfaction" },
+    { value: "100%", label: "Board-certified MDs" },
+  ],
+  credentials: [
+    "Board-Certified · American Board of Dermatology",
+    "Fellows of the American Academy of Dermatology",
+    "Austin Top Doctor 2019–2025",
+    "American Society for Dermatologic Surgery",
+  ],
 } as const;
 
 export const fullAddress = () =>

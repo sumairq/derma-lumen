@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           <Breadcrumbs items={[{ name: "Privacy Policy", path: routes.privacy, current: true }]} />
           <div className="mt-8 max-w-3xl">
             <SectionEyebrow>Legal</SectionEyebrow>
-            <h1 className="mt-5 font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl">
+            <h1 className="mt-5 font-display text-display-xl font-medium">
               Privacy Policy
             </h1>
             <p className="mt-3 text-sm text-[color:var(--color-muted)]">Last updated: January 1, 2026</p>

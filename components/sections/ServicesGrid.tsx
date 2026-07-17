@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
 import {
   SERVICE_CATEGORIES,
   getServicesByCategory,
@@ -27,8 +28,10 @@ export function ServicesGrid({
             const meta = SERVICE_CATEGORIES[cat];
             const items = getServicesByCategory(cat);
             return (
-              <article
+              <Reveal
+                as="article"
                 key={cat}
+                delay={idx * 100}
                 className={cn(
                   "group relative flex flex-col overflow-hidden rounded-3xl border border-[color:var(--color-line)] p-7 transition-all duration-300",
                   idx === 1
@@ -91,7 +94,7 @@ export function ServicesGrid({
                 >
                   See all {meta.title.toLowerCase()} →
                 </Link>
-              </article>
+              </Reveal>
             );
           }
         )}

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { Reveal } from "@/components/ui/Reveal";
 
 type Step = { step: string; title: string; description: string };
 
@@ -11,9 +12,11 @@ export function ProcessSteps({
 }) {
   return (
     <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-      {steps.map((step) => (
-        <li
+      {steps.map((step, i) => (
+        <Reveal
+          as="li"
           key={step.step}
+          delay={i * 75}
           className={cn(
             "relative rounded-2xl border p-6",
             tone === "ink"
@@ -40,7 +43,7 @@ export function ProcessSteps({
           >
             {step.description}
           </p>
-        </li>
+        </Reveal>
       ))}
     </ol>
   );

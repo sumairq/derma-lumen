@@ -48,14 +48,14 @@ export default function NewPatientsPage() {
           <div className="mt-8 grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
             <div>
               <SectionEyebrow>New Patients</SectionEyebrow>
-              <h1 className="mt-5 font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+              <h1 className="mt-5 font-display text-display-2xl font-medium">
                 We&apos;re glad you&apos;re considering Lumen.
               </h1>
               <p className="mt-6 max-w-2xl text-lg text-[color:var(--color-ink-2)] sm:text-xl">
                 Here&apos;s exactly what to expect from booking your first visit through walking out with a clear plan.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button href={routes.contact} size="lg" arrow>
+                <Button href={routes.book} size="lg" arrow>
                   Book a Consultation
                 </Button>
                 <Button href={routes.intake} size="lg" variant="secondary">
@@ -70,6 +70,8 @@ export default function NewPatientsPage() {
                 fill
                 priority
                 unoptimized
+                placeholder="blur"
+                blurDataURL={images.glowingSkin.blurDataURL}
                 sizes="(min-width: 1280px) 640px, (min-width: 1024px) 48vw, 100vw"
                 className="object-cover object-center"
               />
@@ -98,7 +100,7 @@ export default function NewPatientsPage() {
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
             <div>
               <SectionEyebrow>Come prepared</SectionEyebrow>
-              <h2 className="mt-4 font-display text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
+              <h2 className="mt-4 font-display text-display-md font-medium">
                 What to bring
               </h2>
               <p className="mt-5 text-lg text-[color:var(--color-ink-2)]">

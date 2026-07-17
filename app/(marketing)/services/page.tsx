@@ -53,7 +53,7 @@ export default function ServicesHubPage() {
           <Breadcrumbs items={[{ name: "Services", path: routes.services, current: true }]} />
           <div className="mt-8 max-w-4xl">
             <SectionEyebrow>Services</SectionEyebrow>
-            <h1 className="mt-5 font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 font-display text-display-2xl font-medium">
               Comprehensive dermatology for every stage of life.
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-[color:var(--color-ink-2)] sm:text-xl">
@@ -89,6 +89,8 @@ export default function ServicesHubPage() {
                       alt={`${meta.title} at Lumen Dermatology — ${banner.alt}`}
                       fill
                       quality={100}
+                      placeholder="blur"
+                      blurDataURL={banner.blurDataURL}
                       sizes="(min-width: 1280px) 600px, (min-width: 1024px) 48vw, 100vw"
                       className="object-cover object-center"
                     />

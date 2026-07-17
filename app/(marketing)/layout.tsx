@@ -1,6 +1,7 @@
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
 
 export default function MarketingLayout({
   children,
@@ -13,6 +14,7 @@ export default function MarketingLayout({
       <Header />
       <main id="main">{children}</main>
       <Footer />
+      <StickyMobileCTA />
     </>
   );
 }

@@ -25,14 +25,14 @@ export function CTA({
         />
         <div className="relative max-w-2xl">
           <SectionEyebrow tone="light">Book a consultation</SectionEyebrow>
-          <h2 className="mt-4 text-balance font-display text-4xl font-medium leading-[1.05] tracking-tight text-[color:var(--color-bg)] sm:text-5xl lg:text-6xl">
+          <h2 className="mt-4 text-balance font-display text-display-lg font-medium text-[color:var(--color-bg)]">
             {heading}
           </h2>
           <p className="mt-5 text-pretty text-lg text-[color:var(--color-bg)]/85">
             {description}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button href={routes.contact} size="lg" variant="ink" className="bg-[color:var(--color-bg)] !text-[color:var(--color-ink)] hover:!bg-white" arrow>
+            <Button href={routes.book} size="lg" variant="ink" className="bg-[color:var(--color-bg)] !text-[color:var(--color-ink)] hover:!bg-white" arrow>
               Book Online
             </Button>
             <Button

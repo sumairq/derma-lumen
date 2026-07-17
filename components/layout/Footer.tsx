@@ -86,6 +86,9 @@ export function Footer() {
                 Clinic
               </h3>
               <ul className="space-y-2 text-sm">
+                <li><Link href={routes.book} className="text-[color:var(--color-bg)]/65 hover:text-[color:var(--color-gold)]">Book a Consultation</Link></li>
+                <li><Link href={routes.results} className="text-[color:var(--color-bg)]/65 hover:text-[color:var(--color-gold)]">Before &amp; After</Link></li>
+                <li><Link href={routes.pricing} className="text-[color:var(--color-bg)]/65 hover:text-[color:var(--color-gold)]">Pricing</Link></li>
                 <li><Link href={routes.about} className="text-[color:var(--color-bg)]/65 hover:text-[color:var(--color-gold)]">About Us</Link></li>
                 <li><Link href={routes.team} className="text-[color:var(--color-bg)]/65 hover:text-[color:var(--color-gold)]">Meet the Team</Link></li>
                 <li><Link href={routes.newPatients} className="text-[color:var(--color-bg)]/65 hover:text-[color:var(--color-gold)]">New Patients</Link></li>

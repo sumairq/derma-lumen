@@ -22,7 +22,7 @@ export default function AccessibilityPage() {
           <Breadcrumbs items={[{ name: "Accessibility", path: routes.accessibility, current: true }]} />
           <div className="mt-8 max-w-3xl">
             <SectionEyebrow>Accessibility</SectionEyebrow>
-            <h1 className="mt-5 font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl">
+            <h1 className="mt-5 font-display text-display-xl font-medium">
               Accessibility Statement
             </h1>
           </div>

@@ -9,7 +9,7 @@ export function AnnouncementBar() {
         <span className="hidden sm:inline-block size-1.5 rounded-full bg-[color:var(--color-gold)]" aria-hidden />
         <span>Now accepting new patients — most appointments available within 2 weeks.</span>
         <Link
-          href={routes.contact}
+          href={routes.book}
           className="inline-flex items-center gap-1 font-medium text-[color:var(--color-gold)] hover:underline"
         >
           Book today <ArrowRight className="size-3" aria-hidden />

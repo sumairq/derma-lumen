@@ -4,6 +4,7 @@ import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { Features } from "@/components/sections/Features";
 import { FeaturedTreatments } from "@/components/sections/FeaturedTreatments";
 import { DoctorIntro } from "@/components/sections/DoctorCard";
+import { Statement } from "@/components/sections/Statement";
 import { TestimonialMarquee } from "@/components/sections/TestimonialMarquee";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { BlogCardGrid } from "@/components/sections/BlogCardGrid";
@@ -57,6 +58,7 @@ export default function Home() {
       <Section>
         <FeaturedTreatments />
       </Section>
+      <Statement />
       <Section tone="surface">
         <DoctorIntro />
       </Section>

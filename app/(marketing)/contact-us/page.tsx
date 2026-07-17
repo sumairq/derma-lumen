@@ -29,7 +29,7 @@ export default function ContactPage() {
           <Breadcrumbs items={[{ name: "Contact", path: routes.contact, current: true }]} />
           <div className="mt-8 max-w-4xl">
             <SectionEyebrow>Contact</SectionEyebrow>
-            <h1 className="mt-5 font-display text-5xl font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 font-display text-display-2xl font-medium">
               Let&apos;s get you on the calendar.
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-[color:var(--color-ink-2)] sm:text-xl">

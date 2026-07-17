@@ -95,7 +95,7 @@ export default async function BlogPostPage({
           ]} />
           <div className="mt-8">
             <Badge tone="accent">{cat.title}</Badge>
-            <h1 className="mt-5 text-balance font-display text-4xl font-medium leading-[1.05] tracking-[-0.02em] sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 text-balance font-display text-display-lg font-medium">
               {post.frontmatter.title}
             </h1>
             <p className="mt-5 text-pretty text-xl text-[color:var(--color-ink-2)]">
@@ -131,6 +131,8 @@ export default async function BlogPostPage({
             fill
             priority
             unoptimized
+            placeholder="blur"
+            blurDataURL={cover.blurDataURL}
             sizes="(min-width: 768px) 768px, 100vw"
             className="object-cover"
           />

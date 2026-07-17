@@ -12,11 +12,11 @@ export function ServicesMegaMenu() {
       >
         Services
         <ChevronDown
-          className="size-3.5 transition-transform group-hover:rotate-180"
+          className="size-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180"
           aria-hidden
         />
       </Link>
-      <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+      <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 opacity-0 transition-all group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
         <div className="w-[820px] rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-surface)] p-7 shadow-[var(--shadow-lift)]">
           <div className="grid grid-cols-3 gap-7">
             {(Object.keys(SERVICE_CATEGORIES) as Array<keyof typeof SERVICE_CATEGORIES>).map(
